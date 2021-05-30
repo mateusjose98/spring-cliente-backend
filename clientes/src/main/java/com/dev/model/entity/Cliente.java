@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -22,10 +25,13 @@ public class Cliente {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column (nullable = false, length = 150)
+	@Column (nullable = false, length = 150) 
+	@NotEmpty(message = "{campo.nome.obrigatorio}")
 	private String nome;
 	
-	@Column (nullable = false, length = 11)
+	@Column (nullable = false, length = 11) 
+	@NotEmpty(message = "{campo.cpf.obrigatorio}") 
+	@CPF(message = "{campo.cpf.valido}")
 	private String cpf;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy") @Column(updatable = false)
